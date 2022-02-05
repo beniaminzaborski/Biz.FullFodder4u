@@ -1,4 +1,5 @@
 using Biz.FullFodder4u.Identity.API;
+using Biz.FullFodder4u.Identity.API.ExceptionHandling;
 using Biz.FullFodder4u.Identity.API.Services;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
@@ -9,6 +10,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllers(options =>
 {
+    options.Filters.Add(typeof(GlobalExceptionFilter));
     options.SuppressAsyncSuffixInActionNames = false;
     options.Conventions.Add(
         new RouteTokenTransformerConvention(
