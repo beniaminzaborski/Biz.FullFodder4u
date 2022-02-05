@@ -58,6 +58,18 @@ public class OrderController : ControllerBase
     //[ProducesResponseType(typeof(CreateOrderLineResponseDto), (int)HttpStatusCode.Created)]
     public async Task<IActionResult> CreateOrderLineAsync(Guid orderId, CreateOrderLineRequestDto request)
     {
+        var order = orders.FirstOrDefault(o => o.Id == orderId);
+        if (order != null)
+        {
+            order.Lines.Add(new OrderLineDto
+            { 
+                Id = Guid.NewGuid(),
+                Name = request.Name,
+                Quantity = request.Quantity,
+                Price = request.Price
+            });
+        }
+
         return Created("", null);
     }
 

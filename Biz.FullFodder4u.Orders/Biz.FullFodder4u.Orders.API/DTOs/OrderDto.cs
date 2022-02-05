@@ -15,4 +15,6 @@ public class OrderDto
     public string? ManagerIBAN { get; set; }
 
     public string Restaurant { get; set; }
+
+    public IList<OrderLineDto> Lines { get; set; } = new List<OrderLineDto>();
 }
