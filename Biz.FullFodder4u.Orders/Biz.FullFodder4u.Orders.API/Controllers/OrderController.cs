@@ -1,4 +1,5 @@
 ﻿using Biz.FullFodder4u.Orders.API.DTOs;
+using Biz.FullFodder4u.Orders.API.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -55,7 +56,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpPost("{orderId:Guid}/line")]
-    //[ProducesResponseType(typeof(CreateOrderLineResponseDto), (int)HttpStatusCode.Created)]
+    [ProducesResponseType(/*typeof(CreateOrderLineResponseDto), */(int)HttpStatusCode.Created)]
     public async Task<IActionResult> CreateOrderLineAsync(Guid orderId, CreateOrderLineRequestDto request)
     {
         var order = orders.FirstOrDefault(o => o.Id == orderId);
@@ -74,16 +75,48 @@ public class OrderController : ControllerBase
     }
 
     [HttpPut("{orderId:Guid}/line/{orderLineId:Guid}")]
-    //[ProducesResponseType(typeof(CreateOrderLineResponseDto), (int)HttpStatusCode.Created)]
-    public async Task<IActionResult> UpdateOrderLineAsync(Guid orderId, Guid orderLineId/*, CreateOrderLineRequestDto request*/)
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
+    public async Task<IActionResult> UpdateOrderLineAsync(Guid orderId, Guid orderLineId, UpdateOrderLineRequestDto payload)
     {
-        return Created("", null);
+        var order = orders.FirstOrDefault(o => o.Id == orderId);
+        if (order is null)
+        {
+            throw new NotFoundException("Order not exists");
+        }
+
+        var orderLine = order.Lines.FirstOrDefault(l => l.Id == orderLineId);
+        if (orderLine is null)
+        {
+            throw new NotFoundException("Order line not exists");
+        }
+
+        orderLine.Name = payload.Name;
+        orderLine.Quantity = payload.Quantity;
+        orderLine.Price = payload.Price;
+
+        return NoContent();
     }
 
     [HttpDelete("{orderId:Guid}/line/{orderLineId:Guid}")]
-    //[ProducesResponseType(typeof(CreateOrderLineResponseDto), (int)HttpStatusCode.Created)]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
     public async Task<IActionResult> DeleteOrderLineAsync(Guid orderId, Guid orderLineId)
     {
-        return Created("", null);
+        var order = orders.FirstOrDefault(o => o.Id == orderId);
+        if (order is null)
+        {
+            throw new NotFoundException("Order not exists");
+        }
+
+        var orderLine = order.Lines.FirstOrDefault(l => l.Id == orderLineId);
+        if (orderLine is null)
+        {
+            throw new NotFoundException("Order line not exists");
+        }
+
+        order.Lines.Add(orderLine);
+
+        return NoContent();
     }
 }

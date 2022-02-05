@@ -1,4 +1,5 @@
 using Biz.FullFodder4u.Orders.API;
+using Biz.FullFodder4u.Orders.API.ExceptionHandling;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.IdentityModel.Tokens;
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(options =>
 {
+    options.Filters.Add(typeof(GlobalExceptionFilter));
     options.SuppressAsyncSuffixInActionNames = false;
     options.Conventions.Add(
         new RouteTokenTransformerConvention(
