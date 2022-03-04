@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+  biz.fullfodder4u.identity.api:
+    image: ${DOCKER_REGISTRY-}bizfullfodder4uidentityapi
+    container_name: biz_fullfodder4u_identity_api
+    build:
+      context: .
+      dockerfile: Biz.FullFodder4u.Identity/Biz.FullFodder4u.Identity.API/Dockerfile
+    depends_on:
+      - postgres
+
+  biz.fullfodder4u.orders.api:
+    image: ${DOCKER_REGISTRY-}bizfullfodder4uordersapi
+    container_name: biz_fullfodder4u_orders_api
+    build:
+      context: .
+      dockerfile: Biz.FullFodder4u.Orders/Biz.FullFodder4u.Orders.API/Dockerfile
+    depends_on:
+      - postgres
+
+  biz.fullfodder4u.restaurants.api:
+    image: ${DOCKER_REGISTRY-}bizfullfodder4urestaurantsapi
+    container_name: biz_fullfodder4u_restaurants_api
+    build:
+      context: .
+      dockerfile: Biz.FullFodder4u.Restaurants/Biz.FullFodder4u.Restaurants.API/Dockerfile
+    depends_on:
+      - postgres
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: biz_fullfodder4u_rabbitmq
+
+  postgres:
+    image: postgres:14
+    container_name: biz_fullfodder4u_postgres
+    restart: always
