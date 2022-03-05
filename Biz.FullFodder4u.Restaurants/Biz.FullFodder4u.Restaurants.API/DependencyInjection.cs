@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using System.Reflection;
 using System.Text;
 
@@ -88,6 +90,33 @@ public static class DependencyInjection
 
         services.AddDbMigrator(
             configuration.GetConnectionString("RestaurantsApi"));
+
+        return services;
+    }
+
+    public static IServiceCollection AddOpenTelemetry(this IServiceCollection services, string serviceName)
+    {
+        services.AddOpenTelemetryTracing(options =>
+        {
+            options
+                .AddConsoleExporter()
+                .AddJaegerExporter(jaegerOptions =>
+                {
+                    jaegerOptions.AgentHost = "biz_fullfodder4u_jaeger";
+                    jaegerOptions.AgentPort = 6831;
+                })
+                .AddSource(serviceName)
+                .SetResourceBuilder(
+                    ResourceBuilder.CreateDefault()
+                        .AddService(serviceName: serviceName, serviceVersion: "1.0.0.0"))
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddEntityFrameworkCoreInstrumentation(o => o.SetDbStatementForText = true)
+                .AddSqlClientInstrumentation();
+        });
+
+        services
+            .AddSingleton(TracerProvider.Default.GetTracer(serviceName));
 
         return services;
     }

@@ -8,7 +8,8 @@ builder.Services
     .AddJwtAuthentication(builder.Configuration)
     .AddEndpointsApiExplorer()
     .AddCustomSwagger()
-    .AddDataAccess(builder.Configuration);
+    .AddDataAccess(builder.Configuration)
+    .AddOpenTelemetry("Biz.FullFodder4u.Restaurants");
 
 var app = builder.Build();
 
