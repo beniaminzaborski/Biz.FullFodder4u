@@ -9,7 +9,7 @@ builder.Services
     .AddEndpointsApiExplorer()
     .AddCustomSwagger()
     .AddDataAccess(builder.Configuration)
-    .AddOpenTelemetry("Biz.FullFodder4u.Restaurants");
+    .AddOpenTelemetry("Biz.FullFodder4u.Restaurants", builder.Configuration);
 
 var app = builder.Build();
 

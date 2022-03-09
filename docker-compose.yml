@@ -9,6 +9,7 @@ services:
       dockerfile: Biz.FullFodder4u.Identity/Biz.FullFodder4u.Identity.API/Dockerfile
     depends_on:
       - postgres
+      - jaeger
 
   biz.fullfodder4u.orders.api:
     image: ${DOCKER_REGISTRY-}bizfullfodder4uordersapi
@@ -18,6 +19,7 @@ services:
       dockerfile: Biz.FullFodder4u.Orders/Biz.FullFodder4u.Orders.API/Dockerfile
     depends_on:
       - postgres
+      - jaeger
 
   biz.fullfodder4u.restaurants.api:
     image: ${DOCKER_REGISTRY-}bizfullfodder4urestaurantsapi
@@ -27,6 +29,7 @@ services:
       dockerfile: Biz.FullFodder4u.Restaurants/Biz.FullFodder4u.Restaurants.API/Dockerfile
     depends_on:
       - postgres
+      - jaeger
 
   rabbitmq:
     image: rabbitmq:3-management-alpine

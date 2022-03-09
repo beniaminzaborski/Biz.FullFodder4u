@@ -1,55 +1,14 @@
 using Biz.FullFodder4u.Orders.API;
-using Biz.FullFodder4u.Orders.API.ExceptionHandling;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add(typeof(GlobalExceptionFilter));
-    options.SuppressAsyncSuffixInActionNames = false;
-    options.Conventions.Add(
-        new RouteTokenTransformerConvention(
-            new SlugifyParameterTransformer()));
-});
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidAudience = builder.Configuration["Jwt:Audience"],
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-    };
-});
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddSwaggerGen(options => 
-{
-    var jwtSecurityRequirements = new OpenApiSecurityRequirement();
-    jwtSecurityRequirements.Add(new OpenApiSecurityScheme()
-    {
-        Reference = new OpenApiReference
-        {
-            Type = ReferenceType.SecurityScheme,
-            Id = "Bearer"
-        }
-    }, new string[] { });
-    options.AddSecurityRequirement(jwtSecurityRequirements);
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme() { In = ParameterLocation.Header, Description = "Please insert token with Bearer into field", Name = "Authorization", Type = SecuritySchemeType.ApiKey });
-});
+builder.Services
+    .AddCustomControllers()
+    .AddCustomAuthentication(builder.Configuration)
+    .AddEndpointsApiExplorer()
+    .AddCustomSwagger()
+    .AddOpenTelemetry("Biz.FullFodder4u.Orders", builder.Configuration);
 
 var app = builder.Build();
 
@@ -60,10 +19,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseHttpsRedirection()
+    .UseAuthentication()
+    .UseAuthorization();
 
 app.MapControllers()
     .RequireAuthorization();

@@ -5,6 +5,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - Jaeger__AgentHost=biz_fullfodder4u_jaeger
+      - Jaeger__AgentPort=6831
     ports:
       - "80"
       - "443"
@@ -15,6 +17,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - Jaeger__AgentHost=biz_fullfodder4u_jaeger
+      - Jaeger__AgentPort=6831
     ports:
       - "80"
       - "443"
@@ -26,6 +30,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - Jaeger__AgentHost=biz_fullfodder4u_jaeger
+      - Jaeger__AgentPort=6831
     ports:
       - "80"
       - "443"
