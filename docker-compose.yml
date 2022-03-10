@@ -1,6 +1,17 @@
 version: '3.4'
 
 services:
+  biz.fullfodder4u.bff:
+    image: ${DOCKER_REGISTRY-}bizfullfodder4ubff
+    container_name: biz_fullfodder4u_bff
+    build:
+      context: .
+      dockerfile: Biz.FullFodder4u.BFF/Biz.FullFodder4u.BFF/Dockerfile
+    depends_on:
+      - biz.fullfodder4u.identity.api
+      - biz.fullfodder4u.orders.api
+      - biz.fullfodder4u.restaurants.api
+
   biz.fullfodder4u.identity.api:
     image: ${DOCKER_REGISTRY-}bizfullfodder4uidentityapi
     container_name: biz_fullfodder4u_identity_api

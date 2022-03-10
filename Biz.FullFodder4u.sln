@@ -22,6 +22,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{9CAD8F0B-649
 		sql\create_databases.sql = sql\create_databases.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Biz.FullFodder4u.BFF", "Biz.FullFodder4u.BFF", "{60B203D4-2F26-42AD-96AA-088A3BBC1D75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biz.FullFodder4u.BFF", "Biz.FullFodder4u.BFF\Biz.FullFodder4u.BFF\Biz.FullFodder4u.BFF.csproj", "{1E6B8D4C-4053-4DD8-BCFB-D9A1EDC183B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,10 @@ Global
 		{D5B9E189-F267-488A-8D6E-DCE2CA009F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5B9E189-F267-488A-8D6E-DCE2CA009F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5B9E189-F267-488A-8D6E-DCE2CA009F69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E6B8D4C-4053-4DD8-BCFB-D9A1EDC183B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E6B8D4C-4053-4DD8-BCFB-D9A1EDC183B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E6B8D4C-4053-4DD8-BCFB-D9A1EDC183B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E6B8D4C-4053-4DD8-BCFB-D9A1EDC183B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +60,7 @@ Global
 		{2953AC64-FBC8-4E72-9167-8B4702A47CEC} = {7E2C559D-221B-4CA5-8C71-8E5A289ACBB4}
 		{47EEEB75-C8E9-48A7-AFB4-3723490E2EE1} = {30833467-C882-42E2-8024-244E8393E0E3}
 		{DA5E07FB-F3F7-4559-A3FD-6E6167B9F331} = {3B837E6B-BBFB-4FBF-AFC4-B51C99719924}
+		{1E6B8D4C-4053-4DD8-BCFB-D9A1EDC183B6} = {60B203D4-2F26-42AD-96AA-088A3BBC1D75}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {871E2AE1-882C-4442-8AD9-F7A53D00B825}
