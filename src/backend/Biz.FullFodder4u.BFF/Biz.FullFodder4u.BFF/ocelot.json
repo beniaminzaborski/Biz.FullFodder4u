@@ -1,0 +1,58 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "biz_fullfodder4u_identity_api",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/identity/{catchAll}",
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 5,
+        "TimeoutValue": 5000
+      },
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+    {
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "biz_fullfodder4u_orders_api",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/orders/{catchAll}",
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 5,
+        "TimeoutValue": 5000
+      },
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+    {
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "biz_fullfodder4u_restaurants_api",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api/restaurants/{catchAll}",
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 5,
+        "TimeoutValue": 5000
+      },
+      "DangerousAcceptAnyServerCertificateValidator": true
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7100"
+  }
+}
