@@ -7,11 +7,11 @@ public class _202203041731_CreateTable_Restaurants : Migration
 {
     public override void Up()
     {
-        Create.Table("restaurants")//.InSchema(schemaName)
+        Create.Table("restaurants")
             .WithColumn("id").AsGuid().NotNullable()
             .WithColumn("name").AsString(250).NotNullable();
 
-        Create.PrimaryKey($"PK__restaurants__id").OnTable("restaurants")//.WithSchema(schemaName)
+        Create.PrimaryKey($"PK__restaurants__id").OnTable("restaurants")
                         .Column("id");
     }
 

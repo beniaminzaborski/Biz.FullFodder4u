@@ -44,6 +44,7 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - Jaeger__AgentHost=biz_fullfodder4u_jaeger
       - Jaeger__AgentPort=6831
+      #- ConnectionStrings__RestaurantsApi="Server=biz_fullfodder4u_postgres;Port=5432;Database=restaurants_db;User Id=postgres;Password=postgres;"
     ports:
       - "80"
       - "443"

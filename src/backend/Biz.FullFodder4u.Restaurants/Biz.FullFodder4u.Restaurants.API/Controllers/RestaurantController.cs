@@ -10,19 +10,6 @@ namespace Biz.FullFodder4u.Restaurants.API.Controllers
     [ApiController]
     public class RestaurantController : ControllerBase
     {
-        //private static readonly IList<RestaurantDto> restaurants = new List<RestaurantDto> 
-        //{ 
-        //    new RestaurantDto { Id = Guid.NewGuid(), Name = "PizzaHut" },
-        //    new RestaurantDto { Id = Guid.NewGuid(), Name = "Halo Pizza" },
-        //    new RestaurantDto { Id = Guid.NewGuid(), Name = "Polne smaki" },
-        //    new RestaurantDto { Id = Guid.NewGuid(), Name = "Chinol z OBI" },
-        //    new RestaurantDto { Id = Guid.NewGuid(), Name = "Plackowa izba" },
-        //    new RestaurantDto { Id = Guid.NewGuid(), Name = "KFC" },
-        //    new RestaurantDto { Id = Guid.NewGuid(), Name = "Kilo mąki" },
-        //    new RestaurantDto { Id = Guid.NewGuid(), Name = "Pierogi polskie" },
-        //    new RestaurantDto { Id = Guid.NewGuid(), Name = "Pierogowa izba" }
-        //};
-
         private readonly ApplicationContext _context;
 
         public RestaurantController(ApplicationContext context)
