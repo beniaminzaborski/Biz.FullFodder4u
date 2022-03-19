@@ -55,3 +55,9 @@ services:
     image: jaegertracing/all-in-one
     container_name: biz_fullfodder4u_jaeger
     restart: on-failure
+
+  solr:
+    image: solr:8
+    container_name: biz_fullfodder4u_solr
+    depends_on:
+      - postgres

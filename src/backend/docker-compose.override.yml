@@ -93,3 +93,11 @@ services:
       - 14269:14269
       - 9411:9411
  
+  solr:
+    ports:
+      - "8983:8983"
+    volumes:
+      - ./.docker/solr/data:/var/solr
+    command:
+      - solr-precreate
+      - biz_fullfodder4u_core
