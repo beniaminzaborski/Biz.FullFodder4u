@@ -1,6 +1,8 @@
 ﻿using Biz.FullFodder4u.Identity.API.DTOs;
 using Biz.FullFodder4u.Identity.API.Entities;
 using Biz.FullFodder4u.Identity.API.Exceptions;
+using Biz.FullFodder4u.IntegrationEvents;
+using MassTransit;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -11,15 +13,19 @@ namespace Biz.FullFodder4u.Identity.API.Services;
 public class UserService : IUserService
 {
     private readonly IConfiguration _configuration;
+    private readonly IPublishEndpoint _publishEndpoint;
 
     private static readonly IList<User> users = new List<User>
     { 
         new User { Id = new Guid("C4779B70-6D3B-4FA3-9B7D-03FD7A28A9E7"), Email = "admin@fodder4u.com", PasshowrdHash = "" }
     };
 
-    public UserService(IConfiguration configuration)
+    public UserService(
+        IConfiguration configuration,
+        IPublishEndpoint publishEndpoint)
     {
         _configuration = configuration;
+        _publishEndpoint = publishEndpoint;
     }
 
     public async Task SignUp(SignUpDataDto payload)
@@ -50,7 +56,10 @@ public class UserService : IUserService
             throw new ValidationException("User already exists");
         }
 
-        users.Add(new User { Id = Guid.NewGuid(), Email = payload.Email, PasshowrdHash = "" });
+        user = new User { Id = Guid.NewGuid(), Email = payload.Email, PasshowrdHash = "" };
+        users.Add(user);
+
+        await _publishEndpoint.Publish(new UserCreatedEvent { UserId = user.Id, Email = user.Email });
     }
 
     public async Task<string> SignIn(SignInDataDto payload)

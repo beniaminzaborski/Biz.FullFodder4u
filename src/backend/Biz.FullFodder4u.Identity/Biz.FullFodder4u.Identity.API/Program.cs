@@ -11,7 +11,8 @@ builder.Services
     .AddCustomControllers()
     .AddEndpointsApiExplorer()
     .AddSwaggerGen()
-    .AddOpenTelemetry("Biz.FullFodder4u.Identity", builder.Configuration);
+    .AddOpenTelemetry("Biz.FullFodder4u.Identity", builder.Configuration)
+    .AddCustomMassTransit();
 
 var app = builder.Build();
 

@@ -24,7 +24,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{9CAD8F0B-649
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Biz.FullFodder4u.BFF", "Biz.FullFodder4u.BFF", "{60B203D4-2F26-42AD-96AA-088A3BBC1D75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biz.FullFodder4u.BFF", "Biz.FullFodder4u.BFF\Biz.FullFodder4u.BFF\Biz.FullFodder4u.BFF.csproj", "{1E6B8D4C-4053-4DD8-BCFB-D9A1EDC183B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Biz.FullFodder4u.BFF", "Biz.FullFodder4u.BFF\Biz.FullFodder4u.BFF\Biz.FullFodder4u.BFF.csproj", "{1E6B8D4C-4053-4DD8-BCFB-D9A1EDC183B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "postgres-jdbc-driver", "postgres-jdbc-driver", "{E812DFBD-96CA-4F81-964D-7CAF77F65041}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

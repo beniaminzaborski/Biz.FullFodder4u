@@ -18,6 +18,10 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - Jaeger__AgentHost=biz_fullfodder4u_jaeger
       - Jaeger__AgentPort=6831
+      - RabbitMq__Host=biz_fullfodder4u_rabbitmq
+      - RabbitMq__VirtualHost=/
+      - RabbitMq__Username=${RABBITMQ_DEFAULT_USER}
+      - RabbitMq__Password=${RABBITMQ_DEFAULT_PASS}
     ports:
       - "80"
       - "443"

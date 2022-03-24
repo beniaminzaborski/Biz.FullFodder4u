@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
@@ -19,6 +20,24 @@ public static class DependencyInjection
         return services;
     }
 
+    public static IServiceCollection AddCustomMassTransit(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddMassTransit(x =>
+        {
+            x.UsingRabbitMq((context, cfg) => 
+            {
+                cfg.Host(configuration["RabbitMq:Host"], configuration["RabbitMq:VirtualHost"], h => 
+                {
+                    h.Username(configuration["RabbitMq:Username"]);
+                    h.Password(configuration["RabbitMq:Password"]);
+                });
+            });
+        })
+        .AddMassTransitHostedService();
+
+        return services;
+     }
+
     public static IServiceCollection AddOpenTelemetry(this IServiceCollection services, string serviceName, IConfiguration configuration)
     {
         services.AddOpenTelemetryTracing(options =>
@@ -37,7 +56,8 @@ public static class DependencyInjection
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddEntityFrameworkCoreInstrumentation(o => o.SetDbStatementForText = true)
-                .AddSqlClientInstrumentation();
+                .AddSqlClientInstrumentation()
+                .AddMassTransitInstrumentation();
         });
 
         services
