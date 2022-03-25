@@ -21,6 +21,18 @@ services:
     depends_on:
       - postgres
       - jaeger
+      - rabbitmq
+
+  biz.fullfodder4u.profiles.api:
+    image: ${DOCKER_REGISTRY-}bizfullfodder4uprofilesapi
+    container_name: biz_fullfodder4u_profiles_api
+    build:
+      context: .
+      dockerfile: Biz.FullFodder4u.Profiles/Biz.FullFodder4u.Profiles.API/Dockerfile
+    depends_on:
+      - postgres
+      - jaeger
+      - rabbitmq
 
   biz.fullfodder4u.orders.api:
     image: ${DOCKER_REGISTRY-}bizfullfodder4uordersapi

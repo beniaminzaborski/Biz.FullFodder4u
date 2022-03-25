@@ -1,15 +1,13 @@
-using Biz.FullFodder4u.Identity.API;
-using Biz.FullFodder4u.Identity.API.Services;
+using Biz.FullFodder4u.Profiles.API;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services
-    .AddScoped<IUserService, UserService>()
     .AddCustomControllers()
     .AddEndpointsApiExplorer()
     .AddSwaggerGen()
-    .AddOpenTelemetry("Biz.FullFodder4u.Identity", builder.Configuration)
+    .AddOpenTelemetry("Biz.FullFodder4u.Profiles", builder.Configuration)
     .AddCustomMassTransit(builder.Configuration);
 
 var app = builder.Build();
@@ -21,8 +19,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection()
-    .UseAuthorization();
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
 
 app.MapControllers();
 

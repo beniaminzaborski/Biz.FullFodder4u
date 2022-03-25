@@ -1,9 +1,10 @@
-﻿using MassTransit;
+﻿using Biz.FullFodder4u.Profiles.API.IntegrationEventHandlers;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
-namespace Biz.FullFodder4u.Identity.API;
+namespace Biz.FullFodder4u.Profiles.API;
 
 public static class DependencyInjection
 {
@@ -24,19 +25,24 @@ public static class DependencyInjection
     {
         services.AddMassTransit(x =>
         {
-            x.UsingRabbitMq((context, cfg) => 
+            x.UsingRabbitMq((context, cfg) =>
             {
-                cfg.Host(configuration["RabbitMq:Host"], configuration.GetValue<ushort>("RabbitMq:Port"), configuration["RabbitMq:VirtualHost"], h => 
+                cfg.Host(configuration["RabbitMq:Host"], configuration.GetValue<ushort>("RabbitMq:Port"), configuration["RabbitMq:VirtualHost"], h =>
                 {
                     h.Username(configuration["RabbitMq:Username"]);
                     h.Password(configuration["RabbitMq:Password"]);
+                });
+
+                cfg.ReceiveEndpoint("user-events-listener", e =>
+                {
+                    e.Consumer<UserCreatedEventHandler>();
                 });
             });
         })
         .AddMassTransitHostedService();
 
         return services;
-     }
+    }
 
     public static IServiceCollection AddOpenTelemetry(this IServiceCollection services, string serviceName, IConfiguration configuration)
     {

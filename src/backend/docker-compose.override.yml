@@ -19,7 +19,26 @@ services:
       - Jaeger__AgentHost=biz_fullfodder4u_jaeger
       - Jaeger__AgentPort=6831
       - RabbitMq__Host=biz_fullfodder4u_rabbitmq
-      - RabbitMq__VirtualHost=/
+      - RabbitMq__Port=5672
+      - RabbitMq__VirtualHost=${RABBITMQ_DEFAULT_VHOST}
+      - RabbitMq__Username=${RABBITMQ_DEFAULT_USER}
+      - RabbitMq__Password=${RABBITMQ_DEFAULT_PASS}
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  biz.fullfodder4u.profiles.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - Jaeger__AgentHost=biz_fullfodder4u_jaeger
+      - Jaeger__AgentPort=6831
+      - RabbitMq__Host=biz_fullfodder4u_rabbitmq
+      - RabbitMq__Port=5672
+      - RabbitMq__VirtualHost=${RABBITMQ_DEFAULT_VHOST}
       - RabbitMq__Username=${RABBITMQ_DEFAULT_USER}
       - RabbitMq__Password=${RABBITMQ_DEFAULT_PASS}
     ports:
@@ -58,14 +77,14 @@ services:
 
   rabbitmq:
     environment:
-      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+      RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_DEFAULT_VHOST}
     ports:
       - 5672:5672
       - 15672:15672
     volumes:
-      - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
+      #- ./.docker/rabbitmq/etc/:/etc/rabbitmq/
       - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
       - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
 
